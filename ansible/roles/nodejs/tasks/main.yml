@@ -1,0 +1,33 @@
+---
+- name: Install Node.js, npm and git
+  apt:
+    name:
+      - nodejs
+      - npm
+      - git
+    state: present
+    update_cache: yes
+
+- name: Clone Node.js Application
+  git:
+    repo: "https://github.com/monikaspawar/Nodejs-app-with-ansible-playbook.git"
+    dest: /home/ubuntu/node-app
+    version: main
+    force: yes
+
+- name: Install dependencies
+  command: npm install
+  args:
+    chdir: /home/ubuntu/node-app
+
+- name: Copy service file to systemd
+  template:
+    src: nodeapp.service.j2
+    dest: /etc/systemd/system/nodeapp.service
+  notify: restart node app
+
+- name: Enable and start service
+  systemd:
+    name: nodeapp
+    enabled: yes
+    state: started

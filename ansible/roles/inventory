@@ -1,0 +1,2 @@
+[nodejs_servers]
+43.204.29.205 ansible_user=ubuntu ansible_ssh_private_key_file=/home/monika/.ssh/aws-key.pem

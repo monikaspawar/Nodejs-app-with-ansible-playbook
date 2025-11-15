@@ -1,0 +1,10 @@
+---
+- name: Deploy Node.js App using Role
+  hosts: nodejs_servers
+  become: yes
+
+  roles:
+    - nodejs
+
+
+    
